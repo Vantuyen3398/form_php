@@ -5,11 +5,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Register</title>
 	<link rel="stylesheet" href="../css/register.css">
+    
 </head>
 <body>
 	<div  class="form">
 		<h2>Register</h2>
-    	<form id="contactform" action="index.php?action=register" method="post"> 
+        <!-- <p class="error"><?php echo $errExistUser?></p> -->
+    	<form id="contactform" action="index.php?action=register" method="post" name="register" onsubmit="return validateForm()" enctype="multipart/form-data"> 
     			<p class="contact"><label for="name">Name</label></p> 
     			<input id="name" name="name" placeholder="First and last name"  tabindex="1" type="text"> 
 
@@ -28,8 +30,9 @@
     			<p class="contact"><label for="img">Avatar</label></p> 
     			<input type="file" id="avatar" name="avatar" > 
 
-            <input class="buttom" name="submit" id="submit" tabindex="5" value="Register" type="submit"> 	 
+            <input class="buttom" name="submit" id="submit" tabindex="5" value="Register" type="submit" > 	 
    	</form> 
 	</div>
+    <script src="../js/validate.js"></script>
 </body>
 </html>

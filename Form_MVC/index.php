@@ -11,6 +11,7 @@
 	<title></title>
 	<link rel="stylesheet" href="css/index.css">
 	<link rel="stylesheet" href="css/register.css">
+	<script src="js/validate.js"></script>
 </head>
 <body>
 	<div class="container">

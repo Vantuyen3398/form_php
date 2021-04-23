@@ -16,10 +16,25 @@
 						$username = trim($_POST['username']);
 						$password = trim(md5($_POST['password']));
 						$created = date('Y-m-d', strtotime($_POST['date']));
-						$avatar = trim($_POST['avatar']);
-						if($model->addUser($name, $email, $username, $password, $created,$avatar) === True){
-							$functionCommon->redirectPage('index.php?action=register');
+						
+						$avatar = 'default.png';
+						$pathUpload = 'uploads/users/';
+						if ($_FILES['avatar']['error'] == 0) {
+							move_uploaded_file($_FILES['avatar']['tmp_name'], $pathUpload.$_FILES['avatar']['name']);
+							$avatar = $_FILES['avatar']['name'];
 						}
+
+						$model = new Model();
+						$errorExistUser = '';
+						$checkExistUser = $model->checkExistUser($email, $username);
+						if ($checkExistUser) {
+							$errorExistUser = 'Exist email or username';
+						}else
+							{
+								if ($model->addUser($name, $email, $username, $password, $created,$avatar) === True) {
+									$functionCommon->redirectPage('index.php?action=register');
+								}
+							}
 					}
 					include 'view/register.php';
 					break;

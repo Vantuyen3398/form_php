@@ -41,5 +41,20 @@
 				}
 			}
 		}
+
+		function checkExistUser($email, $username){
+			if(file_exists("uploads/user.txt")){
+				$r = fopen("uploads/user.txt", "r");
+				while (!feof($r)) {
+					$row = fgets($r);
+					if (!empty($row)) {
+						$arr = explode(",", $row);
+						if ($arr[1] == $email || $arr[2] == $username){
+							return true;
+						}
+					}
+				}
+			}
+		}
 	}
 ?>

@@ -7,24 +7,15 @@
     <link rel="stylesheet" href="../css/chagne.css">
 </head>
 <body>
-    <form action="index.php?action=chagne" method="POST">
-        <h1>Forgot password</h1>
-        <div class="inset">
-            <p>
-                <label for="email">Email</label>
-                <input type="text" name="email" id="email">
-            </p>
-        </div>
-        <p class="p-container">
-            <input type="submit" onclick="sendEmail()" name="submit" id="go" value="Send">
-        </p>
-    </form>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript">
-        function sendEmail(){
-            var email = $("#email");
-            var sublect = $("#subject");
-        }
-    </script>
+    <div  class="form">
+        <h2>Chagne Password</h2>
+        <form id="contactform" action="index.php?action=chagne" method="post">
+
+                <p class="contact"><label for="email">Email</label></p> 
+                <input id="email" name="email" placeholder="example@domain.com"  type="email"> 
+
+            <input class="buttom" name="submit" id="submit" tabindex="5" value="Chagne" type="submit">     
+    </form> 
+    </div>
 </body>
 </html>
