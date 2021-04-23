@@ -1,7 +1,6 @@
 <?php  
 	session_start();
-	include 'controller/controller.php';
-	
+	include 'controller/controller.php';	
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,6 +11,19 @@
 	<link rel="stylesheet" href="css/index.css">
 	<link rel="stylesheet" href="css/register.css">
 	<script src="js/validate.js"></script>
+	<style>
+		.infor a{
+			margin-left: 5px;
+			text-decoration: none;
+			color: lightseagreen;
+			padding: 5px;
+			border: 1px solid lightseagreen;
+			box-sizing: border-box;
+			border-radius: 15px;
+			background-color: lightyellow;
+			border: none;
+		}
+	</style>
 </head>
 <body>
 	<div class="container">
@@ -27,6 +39,7 @@
 			<row>
 				<ul class="infor">
 					<?php if(isset($_SESSION['login']['username'])){?>
+					<li><img src="uploads/users/<?php echo $_SESSION['addUser']['avatar']?>" alt="avatar" class="avatar_user"></li>
 					<li><?php echo $_SESSION['login']['username'];?><a href="index.php?action=logout"> Logout</a></li>
 				<?php } ?>
 				</ul>

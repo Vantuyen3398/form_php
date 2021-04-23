@@ -56,5 +56,10 @@
 				}
 			}
 		}
+		function sendMail(){
+			$nFrom = 'Đổi mật khẩu';
+    		$mFrom = 'Vantuyen3398@gmail.com';  //dia chi email cua ban 
+    		$mPass = 'Vantuyen130398'; 
+		}
 	}
 ?>

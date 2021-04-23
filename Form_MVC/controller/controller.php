@@ -32,6 +32,8 @@
 						}else
 							{
 								if ($model->addUser($name, $email, $username, $password, $created,$avatar) === True) {
+									$user['avatar'] = $avatar;
+									$_SESSION['user'] = $user;
 									$functionCommon->redirectPage('index.php?action=register');
 								}
 							}
@@ -46,6 +48,7 @@
 							$checklogin = $model->login($username, $password);
 							if ($checklogin) {
 								$login['username'] = $username;
+								$login['avatar']['name'] = $avatar;
 								$_SESSION['login'] = $login;
 								header("Location:index.php");
 							}
@@ -54,14 +57,51 @@
 						include 'view/login.php';
 						break;
 				case 'chagne':
-					if(isset($_POST['submit']))	{
-						$email = trim($_POST['email']);
-						$model = new Model;
-						$checkemail = $model->chagnePass($email);
-						if($checkemail){
-							$chagnePass['email'] = $email;
-							$_SESSION['chagnePass'] = $chagnePass;
-							header("Location:index.php");
+					if(isset($_POST['submit']) && $_POST['email'])	{
+						$emailId = trim($_POST['email']);
+						$model = new Model();
+
+						$chagnePass = $model->chagnePass($emailId);
+						if($chagnePass){
+							$token = md5($emailId).rand(10,999);
+							$expFormat = mktime(
+    									 date("H"), date("i"), date("s"), date("m") ,date("d")+1, date("Y")
+     									);
+							$link = "<a href='http://localhost:8080/Form_MVC/index.php?action=chagne?key=".$emailId."&token=".$token."'>Click To Reset password</a>";
+							include 'send_mail/PHPMailer/SMTP.php';
+							include 'send_mail/PHPMailer/PHPMailer.php'; 
+							$mail = new PHPMailer();
+							$mail->CharSet =  "utf-8";
+						    $mail->IsSMTP();
+						    // enable SMTP authentication
+						    $mail->SMTPAuth = true;                  
+						    // GMAIL username
+						    $mail->Username = "vantuyen3398@gmail.com";
+						    // GMAIL password
+						    $mail->Password = "Vantuyen130398";
+						    $mail->SMTPSecure = "ssl";  
+						    // sets GMAIL as the SMTP server
+						    $mail->Host = "smtp.gmail.com";
+						    // set the SMTP port for the GMAIL server
+						    $mail->Port = "465";
+						    $mail->From='vantuyen3398@gmail.com';
+						    $mail->FromName='Tuyen';
+						    $mail->AddAddress('reciever_email_id', 'reciever_name');
+						    $mail->Subject  =  'Reset Password';
+						    $mail->IsHTML(true);
+						    $mail->Body    = 'Click On This Link to Reset Password '.$link.'';
+						    $err = '';
+						     if($maill->Send())
+						    {
+						      $err = "Check Your Email and Click on the link sent to your email";
+						    }
+						    else
+						    {
+						      $err = "Mail Error - >".$maill->ErrorInfo;
+						    }
+						}
+						else{
+    					$err =  "Invalid Email Address. Go back";
 						}
 					}
 					include 'view/chagne.php';
@@ -69,6 +109,7 @@
 				case 'logout':
 						unset($_SESSION['login']);
 						header("Location: index.php");
+					break;
 				case 'reset':
 					include 'send_mail/resetpass.php';
 				default:

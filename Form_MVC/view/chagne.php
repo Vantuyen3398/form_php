@@ -9,11 +9,9 @@
 <body>
     <div  class="form">
         <h2>Chagne Password</h2>
-        <form id="contactform" action="index.php?action=chagne" method="post">
-
+        <form id="contactform" action="" method="post">
                 <p class="contact"><label for="email">Email</label></p> 
                 <input id="email" name="email" placeholder="example@domain.com"  type="email"> 
-
             <input class="buttom" name="submit" id="submit" tabindex="5" value="Chagne" type="submit">     
     </form> 
     </div>
